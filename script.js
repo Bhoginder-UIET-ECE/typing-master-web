@@ -154,39 +154,35 @@ restartBtn.addEventListener("click", resetTest);
 difficultySelect.addEventListener("change", resetTest);
 
 
-// Form Validation Logic
+// ==========================================
+// Form Validation & Submission Logic
+// ==========================================
+const contactForm = document.getElementById("contact-form");
+const toast = document.getElementById("toast");
 
 // Function to control the floating notification visibility
 function showSuccessToast() {
-    const toast = document.getElementById('toast');
-    
-    // Slide the notification card into view
     toast.classList.add('show');
-    
-    // Wait 4 seconds then slide it back out
     setTimeout(() => {
         toast.classList.remove('show');
     }, 4000);
 }
 
-// // Form Validation Logic
-const contactForm = document.getElementById("contact-form");
-const toast = document.getElementById("toast");
-
 contactForm.addEventListener("submit", function(event) {
+    // 1. Prevent the default browser refresh
     event.preventDefault();
 
     const emailInput = document.getElementById("email").value;
     const phoneInput = document.getElementById("phone").value;
 
-    // // Validate Email
+    // 2. Validate Email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(emailInput)) {
         alert("Warning: Please enter a completely valid email address (e.g., name@gmail.com).");
         return;
     }
 
-    // // Validate Phone
+    // 3. Validate Phone (if provided)
     if (phoneInput.trim() !== "") {
         const phoneRegex = /^[0-9]{10,15}$/;
         if (!phoneRegex.test(phoneInput)) {
@@ -195,40 +191,27 @@ contactForm.addEventListener("submit", function(event) {
         }
     }
 
-    /* 🚀 SUCCESS STATE TRIGGER: 
-       If code reaches this point, both validation checks passed perfectly! */
-    showSuccessToast();
-    
-    // Optional: Clear the textboxes so it looks clean for the next message
-    contactForm.reset();
-});
-  
-  let formData = new FormData(contactForm);
+    // 4. Gather the form data ONLY after validation passes
+    let formData = new FormData(contactForm);
 
-  fetch(contactForm.action, {
-    method: contactForm.method,
-    body: formData,
-    headers: {
-      'Accept': 'application/json' 
-    }
-  })
-  .then(response => {
-    if (response.ok) {
-     
-      toast.classList.add("show");
-      
-      
-      setTimeout(() => {
-        toast.classList.remove("show");
-      }, 4000);
-      
-     
-      contactForm.reset();
-    } else {
-      alert("Oops! There was a problem submitting your form.");
-    }
-  })
-  .catch(error => {
-    alert("Oops! Something went wrong with your connection.");
-  });
- 
+    // 5. Send the data to Formspree INSIDE the submit event
+    fetch(contactForm.action, {
+        method: contactForm.method,
+        body: formData,
+        headers: {
+            'Accept': 'application/json' 
+        }
+    })
+    .then(response => {
+        if (response.ok) {
+            // 🚀 SUCCESS: Only show toast and reset textboxes if Formspree says OK!
+            showSuccessToast();
+            contactForm.reset();
+        } else {
+            alert("Oops! There was a problem submitting your form. Please try again.");
+        }
+    })
+    .catch(error => {
+        alert("Oops! Something went wrong with your connection.");
+    });
+});
