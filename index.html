@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Typing Speed Tester</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="nav-logo">SpeedType</div>
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <!-- Home Section (Typing Tester) -->
+    <section id="home" class="app-section">
+      <div class="container">
+        <h1>Typing Speed Tester</h1>
+        
+        <div class="difficulty-selector">
+          <label>Select Difficulty: </label>
+          <select id="difficulty">
+            <option value="beginner">Beginner</option>
+            <option value="moderate" selected>Moderate</option>
+            <option value="advanced">Advanced</option>
+          </select>
+        </div>
+
+        <div class="stats">
+          <p>Time Left: <span id="time">60</span>s</p>
+          <p>Mistakes: <span id="mistakes">0</span></p>
+          <p>WPM: <span id="wpm">0</span></p>
+        </div>
+
+        <!-- Typing Box with Start Screen -->
+        <div class="typing-box">
+          <div id="start-overlay" class="start-overlay">
+            <button id="start-btn" class="start-btn">Start Test</button>
+          </div>
+
+          <p id="quote-display" class="blur-text"></p>
+          <input type="text" id="input-field" class="input-field" autocomplete="off" spellcheck="false">
+        </div>
+
+        <button id="restart-btn">Restart Test</button>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+      <div class="contact-container">
+        <h2>Get In Touch</h2>
+        <p class="contact-subtitle">
+          Have a question or want to work together? Connect with me on 
+          <a href="https://www.linkedin.com/in/bhoginder-uiet/" target="_blank" class="linkedin-link">LinkedIn</a>.
+        </p>
+
+       
+        <form action="https://formspree.io/f/mykqbenz" method="POST" id="contact-form" class="contact-form">
+          
+          
+
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="Enter your name" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" placeholder="Enter your phone number">
+          </div>
+          
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" placeholder="Type your message here..." required></textarea>
+          </div>
+          
+          <button type="submit" class="submit-btn">Send Message</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; <span id="year"></span> All Rights Reserved.</p>
+    <p>Made by Bhoginder</p>
+  </footer>
+
+
+  <div id="toast" class="toast">
+    Message sent successfully! You will get reply shortly.
+  </div>
+
+  <script src="script.js"></script>
+  
+  <script>
+    
+    document.getElementById("year").innerText = new Date().getFullYear();
+  </script>
+</body>
+</html>
