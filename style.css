@@ -335,3 +335,30 @@ button:hover {
 .footer-center-content span {
     font-weight: 500;
 }
+/* --- 🔔 Floating Toast Notification System --- */
+.toast {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: #10b981; /* Premium Emerald Green Success Color */
+    color: #ffffff;
+    padding: 16px 24px;
+    border-radius: 12px;
+    font-weight: 500;
+    font-size: 14px;
+    box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.3), 0 8px 10px -6px rgba(16, 185, 129, 0.3);
+    z-index: 9999;
+    
+    /* Initially hidden and shifted to the right */
+    opacity: 0;
+    transform: translateX(120%);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    pointer-events: none;
+}
+
+/* Class to trigger notification display */
+.toast.show {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+}

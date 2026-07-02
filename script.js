@@ -156,32 +156,52 @@ difficultySelect.addEventListener("change", resetTest);
 
 // Form Validation Logic
 
+// Function to control the floating notification visibility
+function showSuccessToast() {
+    const toast = document.getElementById('toast');
+    
+    // Slide the notification card into view
+    toast.classList.add('show');
+    
+    // Wait 4 seconds then slide it back out
+    setTimeout(() => {
+        toast.classList.remove('show');
+    }, 4000);
+}
+
+// // Form Validation Logic
 const contactForm = document.getElementById("contact-form");
-const toast = document.getElementById("toast"); 
+const toast = document.getElementById("toast");
 
 contactForm.addEventListener("submit", function(event) {
-  
-  event.preventDefault(); 
+    event.preventDefault();
 
-  const emailInput = document.getElementById("email").value;
-  const phoneInput = document.getElementById("phone").value;
+    const emailInput = document.getElementById("email").value;
+    const phoneInput = document.getElementById("phone").value;
 
-  // Validate Email
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRegex.test(emailInput)) {
-    alert("Warning: Please enter a completely valid email address (e.g., name@gmail.com).");
-    return;
-  }
-
-  //  Validate Phone
-  if (phoneInput.trim() !== "") {
-    const phoneRegex = /^[0-9]{10,15}$/;
-    if (!phoneRegex.test(phoneInput)) {
-      alert("Warning: Phone number can only contain numbers and must be 10 to 15 digits long.");
-      return;
+    // // Validate Email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(emailInput)) {
+        alert("Warning: Please enter a completely valid email address (e.g., name@gmail.com).");
+        return;
     }
-  }
-  
+
+    // // Validate Phone
+    if (phoneInput.trim() !== "") {
+        const phoneRegex = /^[0-9]{10,15}$/;
+        if (!phoneRegex.test(phoneInput)) {
+            alert("Warning: Phone number can only contain numbers and must be 10 to 15 digits long.");
+            return;
+        }
+    }
+
+    /* 🚀 SUCCESS STATE TRIGGER: 
+       If code reaches this point, both validation checks passed perfectly! */
+    showSuccessToast();
+    
+    // Optional: Clear the textboxes so it looks clean for the next message
+    contactForm.reset();
+});
   
   let formData = new FormData(contactForm);
 
@@ -211,5 +231,4 @@ contactForm.addEventListener("submit", function(event) {
   .catch(error => {
     alert("Oops! Something went wrong with your connection.");
   });
-});
  
